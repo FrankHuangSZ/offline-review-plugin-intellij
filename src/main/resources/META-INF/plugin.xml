@@ -1,0 +1,33 @@
+<idea-plugin>
+    <id>codereview.idevcod.com</id>
+    <name>local code review tool</name>
+    <vendor email="idevcod@gmail.com">idevcod</vendor>
+
+    <description><![CDATA[
+    local code review tool for team developer.<br>
+    <em>most HTML tags may be used</em>
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <toolWindow id="code review" anchor="bottom" factoryClass="com.idevcod.ui.WindowFactory"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <group id="codereview.idevcod" text="Greeting" description="Greeting menu">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="Myplugin.Textboxes" class="com.idevcod.Hello" text="what" description="Says hello"/>
+        </group>
+        <action id="com.idevcod.action.CommentItem" class="com.idevcod.action.CommentItem" text="Comment"
+                description="comment code">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
