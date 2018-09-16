@@ -17,6 +17,7 @@ import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -39,6 +40,7 @@ public class WindowFactory implements ToolWindowFactory {
     private JButton exportBtn;
     private JButton removeBtn;
     private JButton removeAllBtn;
+    private JButton aboutBtn;
 
     private ReviewTableModel reviewTableModel;
 
@@ -61,6 +63,7 @@ public class WindowFactory implements ToolWindowFactory {
         createReviewTable();
         createRemoveBtn();
         createRemoveAllBtn();
+        createAboutBtn();
     }
 
     private void createReviewTable() {
@@ -121,5 +124,10 @@ public class WindowFactory implements ToolWindowFactory {
     private void createRemoveAllBtn() {
         removeAllBtn = new JButton();
         removeAllBtn.addActionListener((actionEvent) -> reviewTableModel.removeAll());
+    }
+
+    private void createAboutBtn() {
+        aboutBtn = new JButton();
+        aboutBtn.addActionListener((actionEvent) -> JOptionPane.showMessageDialog(null, new AboutPanel()));
     }
 }

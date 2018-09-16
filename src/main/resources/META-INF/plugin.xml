@@ -28,4 +28,8 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
     </actions>
+
+    <description>
+        A offline review plugin for idea
+    </description>
 </idea-plugin>
