@@ -23,12 +23,12 @@ public class ReviewTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Comment comment = comments.get(rowIndex);
         switch (columnIndex) {
+            case 0:
+                return comment.getFileName();
             case 1:
-                return comment.getFullPath();
+                return comment.getDetail();
             case 2:
-                return comment.getLocation().toString();
-            case 3:
-                return comment.getDescription();
+                return comment.getFullPath();
         }
 
         return "";
@@ -36,5 +36,27 @@ public class ReviewTableModel extends AbstractTableModel {
 
     public String getColumnName(int col) {
         return TableHeader.TABLE_HEADER[col];
+    }
+
+    public void addRow(Comment comment) {
+        comments.add(0, comment);
+
+        fireTableRowsInserted(0, 0);
+    }
+
+    public void removeRow(int rowIndex) {
+        comments.remove(rowIndex);
+        fireTableRowsDeleted(rowIndex, rowIndex);
+    }
+
+    public void removeAll() {
+        int totalRow = comments.size();
+
+        comments.clear();
+        fireTableRowsDeleted(0, totalRow - 1);
+    }
+
+    public Comment getComment(int index) {
+        return comments.get(index);
     }
 }

@@ -4,6 +4,11 @@ public class Location {
     private Position start;
     private Position end;
 
+    public Location(Position start, Position end) {
+        this.start = start;
+        this.end = end;
+    }
+
     public Position getStart() {
         return start;
     }

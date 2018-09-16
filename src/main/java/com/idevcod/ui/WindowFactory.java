@@ -1,7 +1,15 @@
 package com.idevcod.ui;
 
+import com.idevcod.model.Comment;
+import com.idevcod.model.Location;
+import com.idevcod.model.Position;
 import com.idevcod.model.ReviewTableModel;
+import com.idevcod.service.ReviewWindowService;
+import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
@@ -11,30 +19,107 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+
 import com.intellij.ui.table.JBTable;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
+
 public class WindowFactory implements ToolWindowFactory {
+
+    private Project project;
 
     private JBTable reviewTable;
     private JScrollPane reviewScrollPanel;
     private ToolWindow myToolWindow;
     private JPanel myToolWindowContent;
     private JPanel functionPanel;
-    private JButton addBtn;
+    private JButton exportBtn;
     private JButton removeBtn;
+    private JButton removeAllBtn;
+
+    private ReviewTableModel reviewTableModel;
 
     public WindowFactory() {
     }
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+        this.project = project;
         myToolWindow = toolWindow;
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(myToolWindowContent, "", false);
         toolWindow.getContentManager().addContent(content);
+
+        ReviewWindowService service = ServiceManager.getService(project, ReviewWindowService.class);
+        service.setReviewTable(reviewTable);
     }
 
     private void createUIComponents() {
-        reviewTable = new JBTable(new ReviewTableModel());
+        createReviewTable();
+        createRemoveBtn();
+        createRemoveAllBtn();
+    }
+
+    private void createReviewTable() {
+        reviewTableModel = new ReviewTableModel();
+        reviewTable = new JBTable(reviewTableModel);
+
+        ListSelectionModel selectionModel = reviewTable.getSelectionModel();
+        selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        reviewTable.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int rowIndex = reviewTable.rowAtPoint(e.getPoint());
+                    if (rowIndex == -1) {
+                        selectionModel.clearSelection();
+                        return;
+                    }
+
+                    Comment comment = reviewTableModel.getComment(rowIndex);
+                    VirtualFile virtualFile = LocalFileSystem.getInstance().findFileByIoFile(new File(comment.getFullPath()));
+
+                    Position position = comment.getLocation().getStart();
+                    OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, virtualFile,
+                            position.getRow(), position.getColumn());
+                    openFileDescriptor.navigate(true);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+    }
+
+    private void createRemoveBtn() {
+        removeBtn = new JButton();
+        removeBtn.addActionListener((actionEvent) ->
+                reviewTableModel.removeRow(reviewTable.getSelectedRow()));
+    }
+
+    private void createRemoveAllBtn() {
+        removeAllBtn = new JButton();
+        removeAllBtn.addActionListener((actionEvent) -> reviewTableModel.removeAll());
     }
 }
