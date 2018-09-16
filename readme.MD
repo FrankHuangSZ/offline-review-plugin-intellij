@@ -1,0 +1,1 @@
+A offline review plugin for idea
