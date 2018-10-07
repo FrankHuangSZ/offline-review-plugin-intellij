@@ -1,7 +1,6 @@
 package com.idevcod.ui;
 
 import com.idevcod.model.Comment;
-import com.idevcod.model.Location;
 import com.idevcod.model.Position;
 import com.idevcod.model.ReviewTableModel;
 import com.idevcod.service.ReviewWindowService;
@@ -14,6 +13,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import com.intellij.ui.table.JBTable;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.JButton;
@@ -21,9 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-
-import com.intellij.ui.table.JBTable;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -55,11 +52,11 @@ public class WindowFactory implements ToolWindowFactory {
         Content content = contentFactory.createContent(myToolWindowContent, "", false);
         toolWindow.getContentManager().addContent(content);
 
-        ReviewWindowService service = ServiceManager.getService(project, ReviewWindowService.class);
-        service.setReviewTable(reviewTable);
+        this.reviewTableModel = ServiceManager.getService(project, ReviewWindowService.class).getReviewTableModel();
+        configureModelListener();
     }
 
-    private void createUIComponents() {
+    private void configureModelListener() {
         createReviewTable();
         createRemoveBtn();
         createRemoveAllBtn();
@@ -67,12 +64,9 @@ public class WindowFactory implements ToolWindowFactory {
     }
 
     private void createReviewTable() {
-        reviewTableModel = new ReviewTableModel();
-        reviewTable = new JBTable(reviewTableModel);
-
+        reviewTable.setModel(reviewTableModel);
         ListSelectionModel selectionModel = reviewTable.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
         reviewTable.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -113,21 +107,19 @@ public class WindowFactory implements ToolWindowFactory {
 
             }
         });
+
     }
 
     private void createRemoveBtn() {
-        removeBtn = new JButton();
         removeBtn.addActionListener((actionEvent) ->
                 reviewTableModel.removeRow(reviewTable.getSelectedRow()));
     }
 
     private void createRemoveAllBtn() {
-        removeAllBtn = new JButton();
         removeAllBtn.addActionListener((actionEvent) -> reviewTableModel.removeAll());
     }
 
     private void createAboutBtn() {
-        aboutBtn = new JButton();
         aboutBtn.addActionListener((actionEvent) -> JOptionPane.showMessageDialog(null, new AboutPanel()));
     }
 }

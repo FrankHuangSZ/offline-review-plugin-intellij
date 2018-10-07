@@ -18,7 +18,6 @@ import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.ui.table.JBTable;
 
 public class CommentAction extends AnAction {
     private static final Logger LOGGER = Logger.getInstance(CommentAction.class);
@@ -68,8 +67,7 @@ public class CommentAction extends AnAction {
 
     private ReviewTableModel getReviewModel(Project project) {
         ReviewWindowService windowService = ServiceManager.getService(project, ReviewWindowService.class);
-        JBTable reviewTable = windowService.getReviewTable();
-        return (ReviewTableModel) reviewTable.getModel();
+        return windowService.getReviewTableModel();
     }
 }
 

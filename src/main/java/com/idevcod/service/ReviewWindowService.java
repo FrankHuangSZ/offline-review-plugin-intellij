@@ -1,15 +1,20 @@
 package com.idevcod.service;
 
-import com.intellij.ui.table.JBTable;
+import com.idevcod.model.ReviewTableModel;
 
 public class ReviewWindowService {
-    private JBTable reviewTable;
+    private final static Object LOCK = new Object();
+    private ReviewTableModel reviewTable;
 
-    public JBTable getReviewTable() {
+    public ReviewTableModel getReviewTableModel() {
+        if (reviewTable == null) {
+            synchronized (LOCK) {
+                if (reviewTable == null) {
+                    reviewTable = new ReviewTableModel();
+                }
+            }
+        }
+
         return reviewTable;
-    }
-
-    public void setReviewTable(JBTable reviewTable) {
-        this.reviewTable = reviewTable;
     }
 }

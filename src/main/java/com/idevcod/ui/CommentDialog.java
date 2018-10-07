@@ -6,7 +6,6 @@ import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.JComponent;
-import javax.swing.plaf.synth.SynthTextAreaUI;
 
 public class CommentDialog extends DialogWrapper {
     private static final String TITLE = "comment dialog";
