@@ -26,3 +26,7 @@ The jar will be under the build -> libs.
 1. Unable to import gradle project.  
 Change the gradle jvm to JAVA_HOME
 [Unable to import grails 3 project in intellij idea community edition](https://stackoverflow.com/questions/49642207/unable-to-import-grails-3-project-in-intellij-idea-community-edition) 
+
+## Todo List
+1. upload the plugin to Intellij plugin market
+2. support csv file import and export
