@@ -31,5 +31,4 @@ Change the gradle jvm to JAVA_HOME
 MIT license
 
 ## Todo List
-1. upload the plugin to Intellij plugin market
-2. support csv file import and export
+1. support csv file import and export

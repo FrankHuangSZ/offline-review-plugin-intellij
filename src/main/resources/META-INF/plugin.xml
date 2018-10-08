@@ -30,6 +30,6 @@
     </actions>
 
     <description>
-        A offline review plugin for idea
+        A offline review plugin for intellij.
     </description>
 </idea-plugin>
