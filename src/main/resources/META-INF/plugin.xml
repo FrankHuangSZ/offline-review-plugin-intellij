@@ -3,6 +3,8 @@
     <name>local code review tool</name>
     <vendor email="idevcod@gmail.com">idevcod</vendor>
 
+    <idea-version since-build="181"/>
+
     <detail><![CDATA[
     local code review tool for team developer.<br>
     <em>most HTML tags may be used</em>
