@@ -120,6 +120,6 @@ public class WindowFactory implements ToolWindowFactory {
     }
 
     private void createAboutBtn() {
-        aboutBtn.addActionListener((actionEvent) -> JOptionPane.showMessageDialog(null, new AboutPanel()));
+        aboutBtn.addActionListener((actionEvent) -> new AboutDialog(project).show());
     }
 }

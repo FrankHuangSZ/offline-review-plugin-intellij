@@ -1,5 +1,7 @@
 package com.idevcod.ui;
 
+import com.idevcod.util.ProductUtil;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,7 +46,8 @@ public class AboutPanel extends JPanel {
     public AboutPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        JLabel title = new JLabel("offline-review-tool " + "0.1");
+        JLabel title = new JLabel("offline-review-tool " + ProductUtil.getInstance()
+                .getProperty("version", "0.1"));
         title.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         this.add(title);
         this.add(new JLabel(" "));
