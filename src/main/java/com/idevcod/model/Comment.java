@@ -5,6 +5,7 @@ public class Comment {
     private String fileName;
     private Location location;
     private String category;
+    private String level;
     private String detail;
 
     public Comment() {
@@ -55,6 +56,14 @@ public class Comment {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     @Override

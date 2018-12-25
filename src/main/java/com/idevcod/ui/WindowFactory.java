@@ -16,11 +16,7 @@ import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.table.JBTable;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -34,14 +30,16 @@ public class WindowFactory implements ToolWindowFactory {
     private ToolWindow myToolWindow;
     private JPanel myToolWindowContent;
     private JPanel functionPanel;
-    private JButton exportBtn;
     private JButton removeBtn;
     private JButton removeAllBtn;
     private JButton aboutBtn;
+    private JButton exportButton;
+    private JButton importButton;
 
     private ReviewTableModel reviewTableModel;
 
     public WindowFactory() {
+
     }
 
     @Override
@@ -60,6 +58,8 @@ public class WindowFactory implements ToolWindowFactory {
         createReviewTable();
         createRemoveBtn();
         createRemoveAllBtn();
+        createImportBtn();
+        createExportBtn();
         createAboutBtn();
     }
 
@@ -82,7 +82,7 @@ public class WindowFactory implements ToolWindowFactory {
 
                     Position position = comment.getLocation().getStart();
                     OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, virtualFile,
-                            position.getRow(), position.getColumn());
+                        position.getRow(), position.getColumn());
                     openFileDescriptor.navigate(true);
                 }
             }
@@ -112,7 +112,7 @@ public class WindowFactory implements ToolWindowFactory {
 
     private void createRemoveBtn() {
         removeBtn.addActionListener((actionEvent) ->
-                reviewTableModel.removeRow(reviewTable.getSelectedRow()));
+            reviewTableModel.removeRow(reviewTable.getSelectedRow()));
     }
 
     private void createRemoveAllBtn() {
@@ -122,4 +122,13 @@ public class WindowFactory implements ToolWindowFactory {
     private void createAboutBtn() {
         aboutBtn.addActionListener((actionEvent) -> new AboutDialog(project).show());
     }
+
+    public void createExportBtn() {
+        exportButton.addActionListener(actionEvent -> reviewTableModel.exportComments(project.getName()));
+    }
+
+    public void createImportBtn() {
+        importButton.addActionListener(actionEvent -> reviewTableModel.importComments(project.getName()));
+    }
+
 }

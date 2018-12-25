@@ -26,6 +26,7 @@ public class CommentDialog extends DialogWrapper {
     protected void doOKAction() {
         comment = new Comment();
         comment.setCategory(commentPanel.getCategory());
+        comment.setLevel(commentPanel.getLevel());
         comment.setDetail(commentPanel.getDetail());
 
         super.doOKAction();

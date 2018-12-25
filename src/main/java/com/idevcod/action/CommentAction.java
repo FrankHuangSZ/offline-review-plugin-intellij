@@ -53,7 +53,11 @@ public class CommentAction extends AnAction {
         LogicalPosition endPosition = editor.offsetToLogicalPosition(selectionModel.getSelectionEnd());
 
         comment.setLocation(new Location(new Position(startPosition.line, startPosition.column),
-                new Position(endPosition.line, endPosition.column)));
+            new Position(endPosition.line, endPosition.column)));
+
+        String filename = commentFile.getName();
+        filename += String.format(" %d:%s", startPosition.line + 1, startPosition.column + 1);
+        comment.setFileName(filename);
     }
 
     @Override

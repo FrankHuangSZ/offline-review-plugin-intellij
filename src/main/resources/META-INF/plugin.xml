@@ -1,12 +1,12 @@
 <idea-plugin>
     <id>codereview.idevcod.com</id>
-    <name>local code review tool</name>
+    <name>Local code review tool</name>
     <vendor email="idevcod@gmail.com">idevcod</vendor>
 
     <idea-version since-build="181"/>
 
     <detail><![CDATA[
-    local code review tool for team developer.<br>
+    Local code review tool for team developer.<br>
     <em>most HTML tags may be used</em>
     ]]></detail>
 
@@ -18,16 +18,18 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <toolWindow id="code review" anchor="bottom" factoryClass="com.idevcod.ui.WindowFactory"/>
+        <toolWindow id="Code Review" anchor="bottom" factoryClass="com.idevcod.ui.WindowFactory"/>
         <projectService serviceInterface="com.idevcod.service.ReviewWindowService"
                         serviceImplementation="com.idevcod.service.ReviewWindowService"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="com.idevcod.action.CommentAction" class="com.idevcod.action.CommentAction" text="Comment"
-                detail="comment code">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        <action id="com.idevcod.action.CommentAction" class="com.idevcod.action.CommentAction" text="Code Review"
+                detail="comment code" >
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <keyboard-shortcut first-keystroke="control alt =" second-keystroke="-" keymap="$default"></keyboard-shortcut>
+
         </action>
     </actions>
 

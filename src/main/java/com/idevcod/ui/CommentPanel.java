@@ -1,32 +1,31 @@
 package com.idevcod.ui;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
+import javax.swing.*;
 
 public class CommentPanel {
     private JPanel commitPanel;
-
     private JLabel categoriesLabel;
-    private JTextField categoriesField;
+    private JComboBox categoriesField;
+    private JLabel levelLabel;
+    private JComboBox levelField;
     private JTextArea detailArea;
-
     private JLabel descriptionLabel;
     private JScrollPane descriptionScrollPanl;
+
 
     public JComponent getPanel() {
         return commitPanel;
     }
 
     public String getCategory() {
-        return categoriesField.getText().trim();
+        return categoriesField.getSelectedItem().toString().trim();
     }
 
     public String getDetail() {
         return detailArea.getText().trim();
+    }
+
+    public String getLevel() {
+        return levelField.getSelectedItem().toString();
     }
 }
