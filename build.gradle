@@ -2,14 +2,17 @@ plugins {
     id 'org.jetbrains.intellij' version '0.3.7'
 }
 
-group 'code review'
+description "Local Code Review Tools For intellij.IDEA"
+
+group 'com.codereview'
 version '0.2.2'
 
 intellij {
-    version '2018.2.4'
+    version '2018.3.2'
     intellij.updateSinceUntilBuild false
 }
+
 patchPluginXml {
-    changeNotes """local code review
-      first version"""
+    changeNotes """Local Code Review Tool
+      First version:v0.2.2.20181226"""
 }

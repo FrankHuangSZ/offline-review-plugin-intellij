@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.JComponent;
 
 public class CommentDialog extends DialogWrapper {
-    private static final String TITLE = "comment dialog";
+    private static final String TITLE = "Code Review-Add Comment";
 
     private CommentPanel commentPanel;
 

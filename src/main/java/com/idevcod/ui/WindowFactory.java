@@ -124,11 +124,11 @@ public class WindowFactory implements ToolWindowFactory {
     }
 
     public void createExportBtn() {
-        exportButton.addActionListener(actionEvent -> reviewTableModel.exportComments(project.getName()));
+        exportButton.addActionListener(actionEvent -> reviewTableModel.exportComments(project.getBasePath(), project.getName()));
     }
 
     public void createImportBtn() {
-        importButton.addActionListener(actionEvent -> reviewTableModel.importComments(project.getName()));
+        importButton.addActionListener(actionEvent -> reviewTableModel.importComments(project.getBasePath()));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.idevcod.action;
 
+import com.google.common.base.Strings;
 import com.idevcod.model.Comment;
 import com.idevcod.model.Location;
 import com.idevcod.model.Position;
@@ -18,6 +19,7 @@ import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.vfs.VirtualFile;
+
 
 public class CommentAction extends AnAction {
     private static final Logger LOGGER = Logger.getInstance(CommentAction.class);
@@ -54,10 +56,17 @@ public class CommentAction extends AnAction {
 
         comment.setLocation(new Location(new Position(startPosition.line, startPosition.column),
             new Position(endPosition.line, endPosition.column)));
-
+        //set file name
         String filename = commentFile.getName();
-        filename += String.format(" %d:%s", startPosition.line + 1, startPosition.column + 1);
+        filename += String.format(" %s", comment.getLocation().getLocation());
         comment.setFileName(filename);
+
+        //set detail
+        String selectTxt = selectionModel.getSelectedText();
+        if (!Strings.isNullOrEmpty(selectTxt)) {
+            String commentTxt = String.format("%s <= [%s]", comment.getDetail(), selectTxt);
+            comment.setDetail(commentTxt);
+        }
     }
 
     @Override

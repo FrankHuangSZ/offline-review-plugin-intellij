@@ -1,14 +1,14 @@
 <idea-plugin>
     <id>codereview.idevcod.com</id>
-    <name>Local code review tool</name>
+    <name>Local Code Review Tool</name>
     <vendor email="idevcod@gmail.com">idevcod</vendor>
 
     <idea-version since-build="181"/>
 
-    <detail><![CDATA[
+    <description><![CDATA[
     Local code review tool for team developer.<br>
     <em>most HTML tags may be used</em>
-    ]]></detail>
+    ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -26,14 +26,10 @@
     <actions>
         <!-- Add your actions here -->
         <action id="com.idevcod.action.CommentAction" class="com.idevcod.action.CommentAction" text="Code Review"
-                detail="comment code" >
+                description="Add code review comment">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
-            <keyboard-shortcut first-keystroke="control alt =" second-keystroke="-" keymap="$default"></keyboard-shortcut>
-
+            <add-to-group group-id="CodeMenu" anchor="last"/>
+            <keyboard-shortcut first-keystroke="control alt 0" keymap="$default"/>
         </action>
     </actions>
-
-    <description>
-        A offline review plugin for intellij.
-    </description>
 </idea-plugin>
