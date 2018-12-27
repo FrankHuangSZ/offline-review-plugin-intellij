@@ -78,11 +78,23 @@ public class ReviewTableModel extends AbstractTableModel {
 
     //export file
     public void exportComments(String projectPath, String projectName) {
-        JFileChooser jfc = new JFileChooser();
-        jfc.setDialogTitle("Save Code Review result");
 
         String dateTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String fileName = projectName + "-CodeReview-" + dateTime + ".csv";
+        
+//        FileChooserDescriptor fcd = new FileChooserDescriptor(false, true, false, false, false, false);
+//        fcd.setTitle("Save Code Review result");
+//
+//        FileChooser.chooseFile(fcd, null, LocalFileSystem.getInstance().findFileByPath(fileName), new Consumer<VirtualFile>() {
+//            @Override
+//            public void consume(VirtualFile virtualFile) {
+//                writeCSVFile(virtualFile.getCanonicalPath(), projectPath);
+//            }
+//        });
+
+
+        JFileChooser jfc = new JFileChooser();
+        jfc.setDialogTitle("Save Code Review result");
         jfc.setSelectedFile(new File(fileName));
 
         int flag = jfc.showSaveDialog(null);

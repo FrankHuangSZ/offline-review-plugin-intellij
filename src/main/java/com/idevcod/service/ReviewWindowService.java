@@ -2,7 +2,9 @@ package com.idevcod.service;
 
 import com.idevcod.model.ReviewTableModel;
 
-public class ReviewWindowService {
+//@State(name = "code-review",additionalExportFile = "code-review.xml")
+//@Storage(value = "code-review.xmlcode-review.xml")
+public class ReviewWindowService /*implements PersistentStateComponent<ReviewTableModel>*/ {
     private final static Object LOCK = new Object();
     private ReviewTableModel reviewTable;
 
@@ -17,4 +19,15 @@ public class ReviewWindowService {
 
         return reviewTable;
     }
+
+//    @Nullable
+//    @Override
+//    public ReviewTableModel getState() {
+//        return reviewTable;
+//    }
+//
+//    @Override
+//    public void loadState(@NotNull ReviewTableModel reviewTableModel) {
+//        XmlSerializerUtil.copyBean(reviewTableModel, reviewTable);
+//    }
 }
