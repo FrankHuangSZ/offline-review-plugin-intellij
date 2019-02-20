@@ -46,14 +46,18 @@ public class AboutPanel extends JPanel {
     public AboutPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        JLabel title = new JLabel("offline-review-tool " + ProductUtil.getInstance()
-                .getProperty("version", "0.1"));
+        JLabel title =  new JLabel("Local Code Review Tool");
         title.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         this.add(title);
+
         this.add(new JLabel(" "));
-        this.add(new JLabel("written by ifreefly"));
+        this.add(new JLabel("Version:"+ProductUtil.getInstance().getProperty("version", "0.1")));
+        this.add(new JLabel("Modify: FrankHuang"));
+
         this.add(new JLabel(" "));
+        this.add(new JLabel("Code base:"));
         this.add(createLinkLabel("https://github.com/ifreefly/offline-review-plugin-intellij"));
+        this.add(new JLabel(" "));
     }
 
     private JLabel createLinkLabel(String link) {

@@ -81,17 +81,6 @@ public class ReviewTableModel extends AbstractTableModel {
 
         String dateTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String fileName = projectName + "-CodeReview-" + dateTime + ".csv";
-        
-//        FileChooserDescriptor fcd = new FileChooserDescriptor(false, true, false, false, false, false);
-//        fcd.setTitle("Save Code Review result");
-//
-//        FileChooser.chooseFile(fcd, null, LocalFileSystem.getInstance().findFileByPath(fileName), new Consumer<VirtualFile>() {
-//            @Override
-//            public void consume(VirtualFile virtualFile) {
-//                writeCSVFile(virtualFile.getCanonicalPath(), projectPath);
-//            }
-//        });
-
 
         JFileChooser jfc = new JFileChooser();
         jfc.setDialogTitle("Save Code Review result");
@@ -116,15 +105,18 @@ public class ReviewTableModel extends AbstractTableModel {
 
     public void writeCSVFile(String fileName, String projectPath) {
         try {
-            FileOutputStream out = new FileOutputStream(fileName);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            byte[] bs = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};   //new added
+            fos.write(bs);
+
             String titles = Joiner.on(",").join(TableHeader.TABLE_HEADER);
-            out.write((titles + System.lineSeparator()).getBytes());
+            fos.write((titles + System.lineSeparator()).getBytes());
 
             for (Comment comment : comments) {
                 String line = Joiner.on(",").join(comment.getCategory(), comment.getLevel(), comment.getDetail(), comment.getFileName(), comment.getFullPath().replace(projectPath, ""));
-                out.write((line + System.lineSeparator()).getBytes(Charsets.UTF_8));
+                fos.write((line + System.lineSeparator()).getBytes(Charsets.UTF_8));
             }
-            out.close();
+            fos.close();
             JOptionPane.showMessageDialog(null, "Export code review comments success");
         } catch (IOException e2) {
             String errorMsg = String.format("Export file[%s] exception \n[%s]", fileName, e2);
@@ -134,10 +126,17 @@ public class ReviewTableModel extends AbstractTableModel {
 
     public void readCSVFile(String fileName, String projectPath) {
         try {
+            boolean firstLine = true;
             List<String> lines = com.google.common.io.Files.readLines(new File(fileName), Charsets.UTF_8);
             for (String line : lines) {
                 //skip title
                 if (line.startsWith("Category")) {
+                    continue;
+                }
+
+                //skip first line
+                if (firstLine) {
+                    firstLine = false;
                     continue;
                 }
 

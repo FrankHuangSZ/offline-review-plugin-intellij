@@ -4,8 +4,8 @@ plugins {
 
 description "Local Code Review Tools For intellij.IDEA"
 
-group 'com.codereview'
-version '0.2.4.20181227'
+group 'com.codereview.tool'
+version '0.2.4.r20190220'
 
 intellij {
     version '2018.3.2'
@@ -14,5 +14,5 @@ intellij {
 
 patchPluginXml {
     changeNotes """Local Code Review Tool</br>
-      First version:0.2.4.20181227"""
+      First version:0.2.4.r20190220"""
 }

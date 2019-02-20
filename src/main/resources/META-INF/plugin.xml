@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>codereview.idevcod.com</id>
+    <id>com.valor.tool.codereview</id>
     <name>Local Code Review Tool</name>
-    <vendor email="idevcod@gmail.com">idevcod</vendor>
+    <vendor email="">FrankHuang</vendor>
 
     <idea-version since-build="181"/>
 

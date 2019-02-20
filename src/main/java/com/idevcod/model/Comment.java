@@ -69,10 +69,10 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "fullPath='" + fullPath + '\'' +
-                ", fileName='" + fileName + '\'' +
-                ", location=" + location +
-                ", detail='" + detail + '\'' +
-                '}';
+            "fullPath='" + fullPath + '\'' +
+            ", fileName='" + fileName + '\'' +
+            ", location=" + location +
+            ", detail='" + detail + '\'' +
+            '}';
     }
 }
